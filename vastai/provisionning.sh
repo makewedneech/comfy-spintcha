@@ -75,15 +75,15 @@ DIFFUSION_MODELS=(
 	"https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors"
 
     ### Z-Image
-    "https://civitai.com/api/download/models/2625526?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+    "https://civitai.com/api/download/models/2625526"
     "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/diffusion_models/z_image_turbo_bf16.safetensors"
 
     ### WAN 2.2
     ### SMOOTHMIX T2V
     ### Low
-    "https://civitai.com/api/download/models/2324440"
+    "https://civitai.com/api/download/models/2324440?type=Model&format=SafeTensor&size=pruned&fp=fp8"
     ### HIGH
-    "https://civitai.com/api/download/models/2323420"
+    "https://civitai.com/api/download/models/2323420?type=Model&format=SafeTensor&size=pruned&fp=fp8"
 
     ## Enhanced NSFW NoLight SVI CF FP8
     ### High
@@ -362,19 +362,50 @@ function provisioning_has_valid_civitai_token() {
 
 # Download from $1 URL to $2 file path
 function provisioning_download() {
+    local url="$1"
+    local dir="$2"
+
     if [[ -n $HF_TOKEN && $1 =~ ^https://([a-zA-Z0-9_-]+\.)?huggingface\.co(/|$|\?) ]]; then
         auth_token="$HF_TOKEN"
     elif 
         [[ -n $CIVITAI_TOKEN && $1 =~ ^https://([a-zA-Z0-9_-]+\.)?civitai\.com(/|$|\?) ]]; then
         auth_token="$CIVITAI_TOKEN"
     fi
-    echo " HEEEERRRRRRR Download failed ($auth_token): $url"
+
+    echo "Downloading → $url"
 
     if [[ -n $auth_token ]]; then
-        
-        wget --header="Authorization: Bearer $auth_token" -nc --content-disposition --trust-server-names --show-progress --progress=bar:force --max-redirect=20 -P "$2" "$1"
+          # For Civitai URLs, handle redirect and get filename from final URL
+        if [[ "$url" == *"civitai.com"* ]]; then
+            printf "Getting filename from Civitai redirect...\n"
+            
+            # Follow redirect and get the final URL
+            local final_url=$(curl -sL -o /dev/null -w '%{url_effective}' "$url")
+            
+            # Extract filename from response-content-disposition parameter in the final URL
+            local filename=$(echo "$final_url" | sed -n 's/.*filename%3D%22\([^%]*\)%22.*/\1/p')
+            
+            # If we couldn't extract filename, try alternative method
+            if [[ -z "$filename" ]]; then
+                # Try to get it from the redirect location header
+                local redirect_url=$(curl -sI "$url" | grep -i "location:" | cut -d' ' -f2 | tr -d '\r')
+                filename=$(echo "$redirect_url" | sed -n 's/.*filename%3D%22\([^%]*\)%22.*/\1/p')
+            fi
+            
+            # If still no filename, use default
+            if [[ -z "$filename" ]]; then
+                filename="$(basename "$url").safetensors"
+            fi
+            
+            printf "Downloading as: %s\n" "$filename"
+            wget -header="Authorization: Bearer $auth_token" -nc --content-disposition --trust-server-names --show-progress --progress=bar:force -O "$filename" -P "$dir" "$url"
+        else
+            wget --header="Authorization: Bearer $auth_token" -nc --content-disposition --trust-server-names --show-progress --progress=bar:force -P "$dir" "$url"
+
+        fi  
+
     else
-        wget -nc --content-disposition --trust-server-names --show-progress --progress=bar:force --max-redirect=20 -P "$2" "$1"
+        wget -nc --content-disposition --trust-server-names --show-progress --progress=bar:force --max-redirect=20 -P "$dir" "$url"
     fi
     status=$?
 
