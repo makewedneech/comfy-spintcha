@@ -1,5 +1,4 @@
 #!/bin/bash
-
 source /venv/main/bin/activate
 COMFYUI_DIR=${WORKSPACE}/ComfyUI
 
@@ -88,7 +87,7 @@ DIFFUSION_MODELS=(
     ### High
     "https://civitai.com/api/download/models/26091416"
     ### Low 
-    "https://civitai.com/api/download/models/2609148p8"
+    "https://civitai.com/api/download/models/2606408"
 
 
 )
@@ -310,6 +309,7 @@ function provisioning_get_files() {
     for url in "${arr[@]}"; do
         ((count++))
         echo "[$count/${#arr[@]}] Downloading: $(basename "$url")"
+        echo "[$count/${#arr[@]}] Downloading: $url"
         provisioning_download "${url}" "${dir}"
         echo "  ✓ Download completed"
     done
@@ -364,10 +364,19 @@ function provisioning_download() {
         [[ -n $CIVITAI_TOKEN && $1 =~ ^https://([a-zA-Z0-9_-]+\.)?civitai\.com(/|$|\?) ]]; then
         auth_token="$CIVITAI_TOKEN"
     fi
-    if [[ -n $auth_token ]];then
-        wget --header="Authorization: Bearer $auth_token" -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
+    echo " HEEEERRRRRRR Download failed ($auth_token): $url"
+
+    if [[ -n $auth_token ]]; then
+        
+        wget --header="Authorization: Bearer $auth_token" -nc --content-disposition --trust-server-names --show-progress --progress=bar:force --max-redirect=20 dotbytes="${3:-4M}" -P "$2" "$1"
     else
-        wget -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
+        wget -nc --content-disposition --trust-server-names --show-progress --progress=bar:force --max-redirect=20 -P "$2" "$1"
+    fi
+    status=$?
+
+    if [[ $status -ne 0 ]]; then
+        echo "  ❌ Download failed ($status): $url"
+        return $status
     fi
 }
 
