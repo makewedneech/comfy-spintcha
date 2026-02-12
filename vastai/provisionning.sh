@@ -47,7 +47,8 @@ NODES=(
     "https://github.com/lquesada/ComfyUI-Inpaint-CropAndStitch"
     "https://github.com/PozzettiAndrea/ComfyUI-SAM3"
 	"https://github.com/ltdrdata/ComfyUI-Impact-Subpack"
-	"https://github.com/ssitu/ComfyUI_UltimateSDUpscale"
+	"https://github.com/ssitu/ComfyUI_UltimateSDUpscale""
+    https://github.com/1038lab/ComfyUI-JoyCaption"
 	
 )
 
@@ -63,33 +64,33 @@ WORKFLOWS=(
     "https://github.com/huchukato/ComfyUI-QwenVL-Mod/raw/main/vastai/workflows/WAN2.2-I2V-Full-AutoPrompt-MMAudio-GGUF-v1-5.json"
     "https://github.com/huchukato/ComfyUI-QwenVL-Mod/raw/main/vastai/workflows/WAN2.2-T2V-Full-AutoPrompt-MMAudio-GGUF.json"
 
-    "https://civitai.com/api/download/models/2668801"
+    #"https://civitai.com/api/download/models/2668801"
 )
 
 DIFFUSION_MODELS=(
 	### FLUXED
     ### https://civitai.com/models/847101/fluxed-up-flux-nsfw-checkpoint
-    "https://civitai.com/api/download/models/2577735"
+    # "https://civitai.com/api/download/models/2577735"
 	### FLUX BASE
 	"https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors"
-	"https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors"
+	#"https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors"
 
     ### Z-Image
-    "https://civitai.com/api/download/models/2625526"
+    # "https://civitai.com/api/download/models/2625526"
     "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/diffusion_models/z_image_turbo_bf16.safetensors"
 
     ### WAN 2.2
     ### SMOOTHMIX T2V
     ### Low
-    "https://civitai.com/api/download/models/2324440?type=Model&format=SafeTensor&size=pruned&fp=fp8"
+    #"https://civitai.com/api/download/models/2324440?type=Model&format=SafeTensor&size=pruned&fp=fp8"
     ### HIGH
-    "https://civitai.com/api/download/models/2323420?type=Model&format=SafeTensor&size=pruned&fp=fp8"
+    #"https://civitai.com/api/download/models/2323420?type=Model&format=SafeTensor&size=pruned&fp=fp8"
 
     ## Enhanced NSFW NoLight SVI CF FP8
     ### High
-    "https://civitai.com/api/download/models/2609141"
+    #"https://civitai.com/api/download/models/2609141"
     ### Low 
-    "https://civitai.com/api/download/models/2609148"
+    #"https://civitai.com/api/download/models/2609148"
 
 
 )
@@ -97,7 +98,7 @@ CHECKPOINT_MODELS=(
 )
 
 UNET_MODELS=(
-   
+   "https://huggingface.co/BennyDaBall/qwen3-4b-Z-Image-Engineer/resolve/main/qwen3-4b-Z-Image-Engineer_v1-f16.gguf"
 )
 
 LORA_MODELS=(
@@ -137,7 +138,7 @@ CONTROLNET_MODELS=(
 BBOX_MODELS=(
     "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/detection/bbox/face_yolov8m.pt"
     "https://huggingface.co/xingren23/comfyflow-models/resolve/main/ultralytics/bbox/hand_yolov8s.pt"
-    "https://civitai.com/api/download/models/3418466"
+    # "https://civitai.com/api/download/models/3418466"
 )
 
 SAM3_MODELS=( 
