@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 source /venv/main/bin/activate
@@ -47,6 +48,8 @@ NODES=(
     "https://github.com/alexopus/ComfyUI-Image-Saver"
     "https://github.com/lquesada/ComfyUI-Inpaint-CropAndStitch"
     "https://github.com/PozzettiAndrea/ComfyUI-SAM3"
+	"https://github.com/ltdrdata/ComfyUI-Impact-Subpack"
+	"https://github.com/ssitu/ComfyUI_UltimateSDUpscale"
 	
 )
 
@@ -62,31 +65,31 @@ WORKFLOWS=(
     "https://github.com/huchukato/ComfyUI-QwenVL-Mod/raw/main/vastai/workflows/WAN2.2-I2V-Full-AutoPrompt-MMAudio-GGUF-v1-5.json"
     "https://github.com/huchukato/ComfyUI-QwenVL-Mod/raw/main/vastai/workflows/WAN2.2-T2V-Full-AutoPrompt-MMAudio-GGUF.json"
 
-    "https://civitai.com/api/download/models/2668801?type=Archive&format=Other"
+    "https://civitai.com/api/download/models/2668801"
 )
 
 DIFFUSION_MODELS=(
 	### FLUX BASE
 	"https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors"
 	"https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors"
-    "https://civitai.com/api/download/models/2577735?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+    "https://civitai.com/api/download/models/2577735"
 
     ### Z-Image
     "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/diffusion_models/z_image_turbo_bf16.safetensors"
-    "https://civitai.com/api/download/models/2633363?type=Model&format=SafeTensor&size=full&fp=fp16"
+    "https://civitai.com/api/download/models/2633363"
 
     ### WAN 2.2
     ### SMOOTHMIX T2V
     ### Low
-    "https://civitai.com/api/download/models/2324440?type=Model&format=SafeTensor&size=pruned&fp=fp8"
+    "https://civitai.com/api/download/models/2324440"
     ### HIGH
-    "https://civitai.com/api/download/models/2323420?type=Model&format=SafeTensor&size=pruned&fp=fp8"
+    "https://civitai.com/api/download/models/2323420"
 
     ## Enhanced NSFW NoLight SVI CF FP8
     ### High
-    "https://civitai.com/api/download/models/2609141?type=Model&format=SafeTensor&size=full&fp=fp16"
+    "https://civitai.com/api/download/models/26091416"
     ### Low 
-    "https://civitai.com/api/download/models/2609148?type=Model&format=SafeTensor&size=full&fp=fp8"
+    "https://civitai.com/api/download/models/2609148p8"
 
 
 )
@@ -100,7 +103,7 @@ UNET_MODELS=(
 LORA_MODELS=(
     "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/LoRAs/Stable-Video-Infinity/v2.0/SVI_v2_PRO_Wan2.2-I2V-A14B_HIGH_lora_rank_128_fp16.safetensors"
     "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/LoRAs/Stable-Video-Infinity/v2.0/SVI_v2_PRO_Wan2.2-I2V-A14B_LOW_lora_rank_128_fp16.safetensors"
-    "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Lightx2v/lightx2v_I2V_14B_480p_cfg_step_distill_rank128_bf16.safetensors"
+    "https://huggingface.co/Kijai/WanVideo_comfy/tree/main/Lightx2v/lightx2v_I2V_14B_480p_cfg_step_distill_rank128_bf16.safetensors"
 
 )
 
@@ -132,11 +135,14 @@ CONTROLNET_MODELS=(
 )
 
 BBOX_MODELS=(
-"https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/detection/bbox/face_yolov8m.pt"
-"https://huggingface.co/xingren23/comfyflow-models/resolve/main/ultralytics/bbox/hand_yolov8s.pt"
-"https://civitai.com/api/download/models/341846?type=Model&format=PickleTensor&size=full&fp=fp16"
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/detection/bbox/face_yolov8m.pt"
+    "https://huggingface.co/xingren23/comfyflow-models/resolve/main/ultralytics/bbox/hand_yolov8s.pt"
+    "https://civitai.com/api/download/models/3418466"
 )
 
+SAM3_MODELS=( 
+    "https://huggingface.co/facebook/sam3/resolve/main/sam3.pt"
+)
 SEGM_MODELS=(
 )
 
@@ -158,10 +164,7 @@ function provisioning_start() {
     echo "� Installing PIP packages..."
     provisioning_get_pip_packages
     
-    echo "🎯 Downloading Models..."
-    provisioning_get_files \
-        "${COMFYUI_DIR}/models/diffusion_models" \
-        "${DIFFUSION_MODELS[@]}"        
+       
     
     echo "📁 Downloading workflows..."
     provisioning_get_files \
@@ -207,7 +210,12 @@ function provisioning_start() {
     provisioning_get_files \
         "${COMFYUI_DIR}/models/ultralytics/bbox" \
         "${BBOX_MODELS[@]}"      
-      
+    
+    echo "🎯 Downloading Models..."
+    provisioning_get_files \
+        "${COMFYUI_DIR}/models/diffusion_models" \
+        "${DIFFUSION_MODELS[@]}" 
+
     provisioning_print_end
 }
 
