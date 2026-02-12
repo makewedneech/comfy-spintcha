@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 source /venv/main/bin/activate
@@ -103,7 +102,7 @@ UNET_MODELS=(
 LORA_MODELS=(
     "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/LoRAs/Stable-Video-Infinity/v2.0/SVI_v2_PRO_Wan2.2-I2V-A14B_HIGH_lora_rank_128_fp16.safetensors"
     "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/LoRAs/Stable-Video-Infinity/v2.0/SVI_v2_PRO_Wan2.2-I2V-A14B_LOW_lora_rank_128_fp16.safetensors"
-    "https://huggingface.co/Kijai/WanVideo_comfy/tree/main/Lightx2v/lightx2v_I2V_14B_480p_cfg_step_distill_rank128_bf16.safetensors"
+    "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Lightx2v/lightx2v_I2V_14B_480p_cfg_step_distill_rank256_bf16.safetensors"
 
 )
 
@@ -163,9 +162,7 @@ function provisioning_start() {
     
     echo "� Installing PIP packages..."
     provisioning_get_pip_packages
-    
        
-    
     echo "📁 Downloading workflows..."
     provisioning_get_files \
         "${COMFYUI_DIR}/user/default/workflows" \
