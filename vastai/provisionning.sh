@@ -150,6 +150,11 @@ function provisioning_start() {
     provisioning_print_header
     echo "🚀 Starting provisioning process..."
     
+    echo "🎯 Downloading Models..."
+    provisioning_get_files \
+        "${COMFYUI_DIR}/models/diffusion_models" \
+        "${DIFFUSION_MODELS[@]}" 
+
     echo "📦 Installing APT packages..."
     provisioning_get_apt_packages
     
@@ -207,10 +212,7 @@ function provisioning_start() {
         "${COMFYUI_DIR}/models/ultralytics/bbox" \
         "${BBOX_MODELS[@]}"      
     
-    echo "🎯 Downloading Models..."
-    provisioning_get_files \
-        "${COMFYUI_DIR}/models/diffusion_models" \
-        "${DIFFUSION_MODELS[@]}" 
+
 
     provisioning_print_end
 }
@@ -368,7 +370,7 @@ function provisioning_download() {
 
     if [[ -n $auth_token ]]; then
         
-        wget --header="Authorization: Bearer $auth_token" -nc --content-disposition --trust-server-names --show-progress --progress=bar:force --max-redirect=20 dotbytes="${3:-4M}" -P "$2" "$1"
+        wget --header="Authorization: Bearer $auth_token" -nc --content-disposition --trust-server-names --show-progress --progress=bar:force --max-redirect=20 -P "$2" "$1"
     else
         wget -nc --content-disposition --trust-server-names --show-progress --progress=bar:force --max-redirect=20 -P "$2" "$1"
     fi
