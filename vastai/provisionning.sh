@@ -67,27 +67,29 @@ WORKFLOWS=(
 )
 
 DIFFUSION_MODELS=(
+	### FLUXED
+    ### https://civitai.com/models/847101/fluxed-up-flux-nsfw-checkpoint
+    "https://civitai.com/api/download/models/2577735?type=Model&format=SafeTensor&size=pruned&fp=fp16"
 	### FLUX BASE
 	"https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors"
 	"https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors"
-    "https://civitai.com/api/download/models/2577735"
 
     ### Z-Image
+    "https://civitai.com/api/download/models/2625526?type=Model&format=SafeTensor&size=pruned&fp=fp16"
     "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/diffusion_models/z_image_turbo_bf16.safetensors"
-    "https://civitai.com/api/download/models/2633363"
 
     ### WAN 2.2
     ### SMOOTHMIX T2V
     ### Low
-    "https://civitai.com/api/download/models/2324440"
+    "https://civitai.com/api/download/models/2324440?type=Model&format=SafeTensor&size=pruned&fp=fp8"
     ### HIGH
-    "https://civitai.com/api/download/models/2323420"
+    "https://civitai.com/api/download/models/2323420?type=Model&format=SafeTensor&size=pruned&fp=fp8"
 
     ## Enhanced NSFW NoLight SVI CF FP8
     ### High
-    "https://civitai.com/api/download/models/26091416"
+    "https://civitai.com/api/download/models/2609141?type=Model&format=SafeTensor&size=full&fp=fp16"
     ### Low 
-    "https://civitai.com/api/download/models/2606408"
+    "https://civitai.com/api/download/models/2609148?type=Model&format=SafeTensor&size=full&fp=fp8"
 
 
 )
