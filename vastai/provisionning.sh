@@ -47,8 +47,9 @@ NODES=(
     "https://github.com/lquesada/ComfyUI-Inpaint-CropAndStitch"
     "https://github.com/PozzettiAndrea/ComfyUI-SAM3"
 	"https://github.com/ltdrdata/ComfyUI-Impact-Subpack"
-	"https://github.com/ssitu/ComfyUI_UltimateSDUpscale""
-    https://github.com/1038lab/ComfyUI-JoyCaption"
+	"https://github.com/ssitu/ComfyUI_UltimateSDUpscale"
+    "https://github.com/1038lab/ComfyUI-JoyCaption"
+    "https://github.com/willmiao/ComfyUI-Lora-Manager"
 	
 )
 
